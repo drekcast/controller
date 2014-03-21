@@ -1,14 +1,13 @@
 {
-    "name": "drekcast-controller",
-    "version": "0.3.0",
-    "dependencies": {
-        "jquery": "1.9",
-        "lodash": "~2.4.1",
-        "requirejs": null,
-
-        "drekcast-client-core": "../client-core",
-
-        "backbone": null
-
-    }
+  "name": "drekcast-controller",
+  "version": "0.3.0",
+  "dependencies": {
+    "jquery": "1.9",
+    "lodash": "~2.4.1",
+    "requirejs": null,
+    "drekcast-client-core": "../client-core",
+    "backbone": null,
+    "handlebars.js": "~1.3.0",
+    "handlebars": "~1.3.0"
+  }
 }
