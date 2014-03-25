@@ -17,6 +17,8 @@ var App = Backbone.View.extend({
 
         // Start listening to the routing
         Backbone.history.start({pushState: false});
+
+        this.tryReconnect();
     },
 
     render: function() {
@@ -27,6 +29,21 @@ var App = Backbone.View.extend({
         this.$el.append(this.channelView.render().hide().el);
         //this.$el.append(this.screenSwitcher.render().el);
 
+    },
+
+    tryReconnect: function() {
+        var data = window.localStorage.getItem('drekcast-connect');
+        if (data) {
+            try {
+                data = JSON.parse(data);
+            } catch(e) {
+                data = {};
+            }
+        }
+        if (data) {
+            Backbone.Events.trigger('_client:autoconnect');
+            this.connect(data.address, data.port, data.username, data.password);
+        }
     },
 
     connect: function(address, port, username, password) {
@@ -42,8 +59,16 @@ var App = Backbone.View.extend({
         this.client.connect();
     },
 
+    disconnect: function() {
+        this.client.disconnect();
+    },
+
     setScreen: function(screenName) {
         this.client.setScreen(screenName);
+    },
+
+    toggleOverlay: function(overlayName, visible) {
+        this.client.toggleOverlay(overlayName, visible);
     }
 
 

@@ -29,6 +29,7 @@
     <script type="text/javascript" src="./views/loadingDialog.js"></script>
     <script type="text/javascript" src="./views/channelView.js"></script>
     <script type="text/javascript" src="./views/screenSwitcher.js"></script>
+    <script type="text/javascript" src="./views/overlaySwitcher.js"></script>
 
 </head>
 <body>
@@ -46,6 +47,14 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">DrekCast</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="disabled"><a href="#" id="toolbar-channel">Channel</a></li>
+                    <li class="disabled"><a href="#" id="toolbar-client">Clients</a></li>
+                    <li class="disabled"><a href="#" id="toolbar-log">Log</a></li>
+                </ul>
+                <button type="button" id="toolbar-disconnect" class="btn btn-default navbar-btn navbar-right btn-disabled" disabled>Disconnect</button>
             </div>
         </div>
     </nav>
@@ -70,7 +79,12 @@
                 </div>
                 <div class="form-group">
                     <label for="connectdialogPassword">Password</label>
-                    <input type="password" class="form-control" id="connectdialogPassword" placeholder="Password" value="{{password}}">
+                    <input type="password" class="form-control" id="connectDialogPassword" placeholder="Password" value="{{password}}">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="connectDialogRemember"> Connect automatically next time
+                    </label>
                 </div>
             </div>
             <div class="panel-footer">
@@ -88,11 +102,26 @@
     </div>
 </script>
 
+<script type="text/x-handlebars-template" id="overlay-switcher-template">
+    <div class="btn-group">
+        {{#each overlays}}
+        <button type="button" class="btn {{#if visible}}btn-success{{else}}btn-default{{/if}}" data-overlay="{{name}}">{{name}}</button>
+        {{/each}}
+    </div>
+</script>
+
 <script type="text/x-handlebars-template" id="channel-view-template">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Channel</a></li>
+        <li><a href="#">Options</a></li>
+        <li><a href="#">DataProviders</a></li>
+    </ul>
+
     <div class="panel panel-default">
         <div class="panel-heading">{{channel.name}}</div>
         <div class="panel-body">
             <div class="screen-switcher-container"></div>
+            <div class="overlay-switcher-container"></div>
         </div>
     </div>
 </script>
