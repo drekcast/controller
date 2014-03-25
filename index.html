@@ -18,12 +18,16 @@
     <script type="text/javascript" src="./bower_components/backbone/backbone.js"></script>
     <script type="text/javascript" src="./bower_components/handlebars/handlebars.min.js"></script>
 
-    <script type="text/javascript" src="../client-core/dist/drekcast-client-core.js"></script>
+    <!--<script type="text/javascript" src="../client-core/dist/drekcast-client-core.js"></script>-->
+    <script type="text/javascript" src="http://localhost:3000/primus/primus.js"></script>
+    <script type="text/javascript" src="../client-core/src/client.js"></script>
 
     <script type="text/javascript" src="./app.js"></script>
     <script type="text/javascript" src="./router.js"></script>
     <script type="text/javascript" src="./views/toolbar.js"></script>
     <script type="text/javascript" src="./views/connectDialog.js"></script>
+    <script type="text/javascript" src="./views/loadingDialog.js"></script>
+    <script type="text/javascript" src="./views/channelView.js"></script>
     <script type="text/javascript" src="./views/screenSwitcher.js"></script>
 
 </head>
@@ -33,7 +37,7 @@
 <![endif]-->
 
 <div id="app">
-
+    <div id="content-container"></div>
 </div>
 
 <script type="text/x-handlebars-template" id="toolbar-template">
@@ -54,23 +58,23 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label for="connectDialogAddress">Server Address</label>
-                    <input type="text" class="form-control" id="connectDialogAddress" placeholder="Hostname or IP address">
+                    <input type="text" class="form-control" id="connectDialogAddress" placeholder="Hostname or IP address" value="{{address}}">
                 </div>
                 <div class="form-group">
                     <label for="connectDialogPort">Server Address</label>
-                    <input type="number" min="1" max="""65535" class="form-control" id="connectDialogPort" placeholder="Portnumber">
+                    <input type="number" min="1" max="65535" class="form-control" id="connectDialogPort" placeholder="Portnumber" value="{{port}}">
                 </div>
                 <div class="form-group">
                     <label for="connectDialogUsername">Username</label>
-                    <input type="text" class="form-control" id="connectDialogUsername" placeholder="Username">
+                    <input type="text" class="form-control" id="connectDialogUsername" placeholder="Username" value="{{username}}">
                 </div>
                 <div class="form-group">
                     <label for="connectdialogPassword">Password</label>
-                    <input type="password" class="form-control" id="connectdialogPassword" placeholder="Password">
+                    <input type="password" class="form-control" id="connectdialogPassword" placeholder="Password" value="{{password}}">
                 </div>
             </div>
             <div class="panel-footer">
-                <button class="btn btn-primary">Connect</button>
+                <button class="btn btn-primary" id="connectDialogButton">Connect</button>
             </div>
         </div>
     </form>
@@ -83,5 +87,24 @@
         {{/each}}
     </div>
 </script>
+
+<script type="text/x-handlebars-template" id="channel-view-template">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{channel.name}}</div>
+        <div class="panel-body">
+            <div class="screen-switcher-container"></div>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="loading-dialog-template">
+    <div class="progress progress-striped active">
+        <div class="progress-bar"  role="progressbar" style="width: 100%">
+            <span class="sr-only">Loading</span>
+        </div>
+    </div>
+</script>
+
+
 </body>
 </html>
