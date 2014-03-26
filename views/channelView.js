@@ -28,18 +28,21 @@ App.Views.ChannelView = Backbone.View.extend({
 
     },
 
-    loadChannel: function(channel) {
+    loadChannel: function(data) {
 
-        this.channel = channel.channel;
+        if (data.channel) {
 
-        this.screenSwitcher.setChannel(this.channel);
-        this.overlaySwitcher.setChannel(this.channel);
+            this.channel = data.channel;
 
-        this.render();
+            this.screenSwitcher.setChannel(this.channel);
+            this.overlaySwitcher.setChannel(this.channel);
 
-        this.show();
+            this.render();
 
-        Backbone.Events.trigger('_loadmask:hide');
+            this.show();
+
+            Backbone.Events.trigger('_loadmask:hide');
+        }
     },
 
     show: function() {
